@@ -1,0 +1,1477 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DLS Competition Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060a10;
+  --panel: #101a25;
+  --panel-soft: #172738;
+  --line: #2b4258;
+  --text: #edf5fb;
+  --muted: #98afc4;
+  --accent: #16f39a;
+  --accent-2: #0eb06c;
+  --gold: #ffd46b;
+  --danger: #ff8f8f;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: "Manrope", sans-serif;
+  background:
+    radial-gradient(circle at 6% 0%, #22374f 0%, transparent 34%),
+    radial-gradient(circle at 98% 8%, #1b483b 0%, transparent 30%),
+    linear-gradient(180deg, #05090d 0%, #0b1219 100%);
+  padding: 20px;
+}
+.page {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  gap: 16px;
+}
+.card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-soft) 100%);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.35);
+  padding: 16px;
+}
+.hero {
+  background: linear-gradient(110deg, rgba(9, 28, 41, 0.95) 0%, rgba(20, 42, 58, 0.95) 50%, rgba(8, 44, 30, 0.88) 100%);
+}
+h1, h2, h3 {
+  margin: 0 0 10px;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.3rem; }
+p { margin: 0; color: var(--muted); }
+label {
+  display: block;
+  font-size: 0.86rem;
+  margin-bottom: 6px;
+  color: var(--muted);
+}
+input, textarea, select, button {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #2a4458;
+  background: #0a141e;
+  color: var(--text);
+  font: inherit;
+}
+textarea { min-height: 98px; resize: vertical; }
+button {
+  border: none;
+  font-weight: 800;
+  color: #032313;
+  cursor: pointer;
+  background: linear-gradient(90deg, var(--accent-2) 0%, var(--accent) 100%);
+}
+button:hover { filter: brightness(1.06); }
+.btn-soft {
+  color: var(--text);
+  background: #193043;
+  border: 1px solid #2a455a;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.inline {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  align-items: end;
+}
+.pill {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #2c5c47;
+  color: #cbffea;
+  background: rgba(11, 61, 42, 0.45);
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-right: 8px;
+  margin-top: 8px;
+}
+.calc {
+  margin-top: 8px;
+  border: 1px solid #28445b;
+  border-radius: 10px;
+  background: #0d1823;
+  padding: 10px;
+}
+.calc strong { color: var(--gold); }
+.search-results {
+  margin-top: 8px;
+  border: 1px solid #254055;
+  border-radius: 10px;
+  background: rgba(8, 15, 23, 0.6);
+  padding: 8px;
+  display: grid;
+  gap: 6px;
+}
+.result-item {
+  text-align: left;
+  font-weight: 700;
+}
+.result-item.active {
+  border: 1px solid #3f6b83;
+  box-shadow: 0 0 0 1px rgba(30, 211, 145, 0.4) inset;
+}
+.hidden { display: none !important; }
+.meta {
+  margin-top: 8px;
+  font-size: 0.88rem;
+  color: #b8cfdf;
+}
+.warning {
+  margin-top: 8px;
+  font-size: 0.84rem;
+  color: var(--danger);
+}
+.table-wrap {
+  margin-top: 8px;
+  overflow-x: auto;
+  border: 1px solid #244155;
+  border-radius: 10px;
+  background: rgba(8, 15, 23, 0.66);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 620px;
+}
+th, td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid #1f3445;
+  font-size: 0.9rem;
+}
+th {
+  color: #bad0e0;
+  background: rgba(18, 34, 47, 0.78);
+  font-weight: 700;
+}
+tr:last-child td { border-bottom: none; }
+.log {
+  margin-top: 8px;
+  border: 1px solid #264055;
+  border-radius: 10px;
+  background: rgba(8, 15, 23, 0.55);
+  max-height: 190px;
+  overflow: auto;
+  padding: 8px;
+}
+.log-item {
+  border-bottom: 1px solid #1f3445;
+  padding: 6px 0;
+  font-size: 0.9rem;
+  color: #c8dcee;
+}
+.log-item:last-child { border-bottom: none; }
+.group-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+}
+.group-card {
+  border: 1px solid #2a4457;
+  border-radius: 12px;
+  background: rgba(10, 22, 31, 0.78);
+  padding: 10px;
+}
+.qualify td { background: rgba(6, 84, 56, 0.24); }
+.eliminate td { background: rgba(95, 34, 34, 0.22); }
+.knock-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+.round-card {
+  border: 1px solid #2a4557;
+  border-radius: 12px;
+  background: rgba(10, 22, 31, 0.8);
+  padding: 10px;
+}
+.match {
+  padding: 6px 0;
+  border-bottom: 1px solid #1d3243;
+  font-size: 0.9rem;
+  color: #c9deee;
+}
+.match:last-child { border-bottom: none; }
+.champion {
+  display: inline-block;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #6f5c23;
+  background: #2c260f;
+  color: #ffe89f;
+  font-weight: 800;
+  padding: 8px 10px;
+}
+.note {
+  margin-top: 8px;
+  font-size: 0.86rem;
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="card hero">
+    <h1>DLS Competition Hub</h1>
+    <p>Create private leagues and cups and enforce admin-only result entry.</p>
+    <div>
+      <span class="pill">Free To Join</span>
+      <span class="pill">League + Cup Search</span>
+      <span class="pill">Admin-Locked Results</span>
+    </div>
+  </section>
+
+  <section class="card grid-2">
+    <div>
+      <h2>Admin Access</h2>
+      <p id="adminStatusText" class="meta">Admin status: Locked</p>
+      <p class="note">Admin credentials are configured and hidden.</p>
+      <div class="inline" style="margin-top:8px;">
+        <button id="approveAdminBtn" type="button">Approve Admin PIN</button>
+        <button id="lockAdminBtn" type="button" class="btn-soft">Lock Admin</button>
+      </div>
+    </div>
+    <div>
+      <h2>Change Admin PIN</h2>
+      <form id="changePinForm" style="display:grid;gap:8px;">
+        <div>
+          <label for="currentPinInput">Current PIN</label>
+          <input id="currentPinInput" type="password" minlength="4" maxlength="24" required>
+        </div>
+        <div>
+          <label for="newPinInput">New PIN</label>
+          <input id="newPinInput" type="password" minlength="4" maxlength="24" required>
+        </div>
+        <div>
+          <label for="confirmNewPinInput">Confirm new PIN</label>
+          <input id="confirmNewPinInput" type="password" minlength="4" maxlength="24" required>
+        </div>
+        <button type="submit">Change PIN</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="card grid-2">
+    <div>
+      <h2>Create League (Admin)</h2>
+      <form id="createLeagueForm" style="display:grid;gap:8px;">
+        <div>
+          <label for="leagueNameInput">League name</label>
+          <input id="leagueNameInput" required placeholder="e.g Kampala Elite League">
+        </div>
+        <div>
+          <label for="leagueTeamsInput">Teams (one per line or comma separated)</label>
+          <textarea id="leagueTeamsInput" placeholder="Team A&#10;Team B&#10;Team C"></textarea>
+        </div>
+        <button type="submit">Create League</button>
+      </form>
+    </div>
+
+    <div>
+      <h2>Find League</h2>
+      <div>
+        <label for="leagueSearchInput">Search by league name</label>
+        <input id="leagueSearchInput" placeholder="Type league name...">
+      </div>
+      <div id="leagueSearchResults" class="search-results"></div>
+
+      <div id="leagueView" class="hidden" style="margin-top:12px;display:grid;gap:8px;">
+        <h3 id="leagueTitle">League</h3>
+        <p id="leagueMeta" class="meta"></p>
+        <div class="inline">
+          <button id="unlockLeagueAdminBtn" type="button" class="btn-soft">Admin: Enter League Result</button>
+          <button id="deleteLeagueBtn" type="button" class="btn-soft">Admin: Delete League</button>
+        </div>
+
+        <form id="leagueResultForm" class="hidden" style="display:grid;gap:8px;">
+          <div class="inline">
+            <div>
+              <label for="leagueHomeSelect">Home team</label>
+              <select id="leagueHomeSelect"></select>
+            </div>
+            <div>
+              <label for="leagueAwaySelect">Away team</label>
+              <select id="leagueAwaySelect"></select>
+            </div>
+          </div>
+          <div class="inline">
+            <div>
+              <label for="leagueHomeScoreInput">Home goals</label>
+              <input id="leagueHomeScoreInput" type="number" min="0" required>
+            </div>
+            <div>
+              <label for="leagueAwayScoreInput">Away goals</label>
+              <input id="leagueAwayScoreInput" type="number" min="0" required>
+            </div>
+          </div>
+          <button type="submit">Save League Result</button>
+        </form>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+              </tr>
+            </thead>
+            <tbody id="leagueTableRows"></tbody>
+          </table>
+        </div>
+        <div id="leagueLog" class="log"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card grid-2">
+    <div>
+      <h2>Create Cup (Admin)</h2>
+      <form id="createCupForm" style="display:grid;gap:8px;">
+        <div>
+          <label for="cupNameInput">Cup name</label>
+          <input id="cupNameInput" required placeholder="e.g DLS Knockout Cup">
+        </div>
+        <div class="inline">
+          <div>
+            <label for="cupGroupCountInput">Number of groups (1-8)</label>
+            <select id="cupGroupCountInput"></select>
+          </div>
+        </div>
+        <div>
+          <label for="cupTeamsInput">Teams (must be exactly 4 teams per group)</label>
+          <textarea id="cupTeamsInput" placeholder="For 2 groups enter exactly 8 teams"></textarea>
+        </div>
+        <button type="submit">Create Cup</button>
+      </form>
+      <p class="note">Cup follows group stage then knockout. Top 2 from each group qualify when group fixtures are complete.</p>
+    </div>
+
+    <div>
+      <h2>Find Cup</h2>
+      <div>
+        <label for="cupSearchInput">Search by cup name</label>
+        <input id="cupSearchInput" placeholder="Type cup name...">
+      </div>
+      <div id="cupSearchResults" class="search-results"></div>
+
+      <div id="cupView" class="hidden" style="margin-top:12px;display:grid;gap:8px;">
+        <h3 id="cupTitle">Cup</h3>
+        <p id="cupMeta" class="meta"></p>
+        <p id="cupProgress" class="meta"></p>
+        <div class="inline">
+          <button id="unlockCupAdminBtn" type="button" class="btn-soft">Admin: Enter Cup Result</button>
+          <button id="deleteCupBtn" type="button" class="btn-soft">Admin: Delete Cup</button>
+        </div>
+
+        <form id="cupResultForm" class="hidden" style="display:grid;gap:8px;">
+          <div>
+            <label for="cupStageSelect">Stage</label>
+            <select id="cupStageSelect">
+              <option value="group">Group Stage</option>
+              <option value="knockout">Knockout</option>
+            </select>
+          </div>
+
+          <div id="cupGroupStageFields" style="display:grid;gap:8px;">
+            <div>
+              <label for="cupGroupSelect">Group</label>
+              <select id="cupGroupSelect"></select>
+            </div>
+            <div class="inline">
+              <div>
+                <label for="cupHomeSelect">Home team</label>
+                <select id="cupHomeSelect"></select>
+              </div>
+              <div>
+                <label for="cupAwaySelect">Away team</label>
+                <select id="cupAwaySelect"></select>
+              </div>
+            </div>
+          </div>
+
+          <div id="cupKnockoutFields" class="hidden">
+            <label for="cupKnockoutMatchSelect">Knockout match</label>
+            <select id="cupKnockoutMatchSelect"></select>
+          </div>
+
+          <div class="inline">
+            <div>
+              <label for="cupHomeScoreInput">Home goals</label>
+              <input id="cupHomeScoreInput" type="number" min="0" required>
+            </div>
+            <div>
+              <label for="cupAwayScoreInput">Away goals</label>
+              <input id="cupAwayScoreInput" type="number" min="0" required>
+            </div>
+          </div>
+
+          <div id="cupTieWinnerWrap" class="hidden">
+            <label for="cupTieWinnerSelect">Winner if draw (penalties)</label>
+            <select id="cupTieWinnerSelect"></select>
+          </div>
+
+          <button type="submit">Save Cup Result</button>
+        </form>
+
+        <div id="cupGroupsContainer" class="group-grid"></div>
+        <div id="cupKnockoutContainer" class="knock-grid"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+const STORAGE_KEY = "dls_competition_hub_v2";
+const UNIVERSAL_ADMIN_PIN = "35786491";
+
+const defaultState = {
+  adminPin: "35786491",
+  leagues: [],
+  cups: []
+};
+
+let state = loadState();
+let currentLeagueId = null;
+let currentCupId = null;
+let unlockedLeagueId = null;
+let unlockedCupId = null;
+let adminApproved = false;
+
+const el = {
+  adminStatusText: document.getElementById("adminStatusText"),
+  approveAdminBtn: document.getElementById("approveAdminBtn"),
+  lockAdminBtn: document.getElementById("lockAdminBtn"),
+  changePinForm: document.getElementById("changePinForm"),
+  currentPinInput: document.getElementById("currentPinInput"),
+  newPinInput: document.getElementById("newPinInput"),
+  confirmNewPinInput: document.getElementById("confirmNewPinInput"),
+
+  createLeagueForm: document.getElementById("createLeagueForm"),
+  leagueNameInput: document.getElementById("leagueNameInput"),
+  leagueTeamsInput: document.getElementById("leagueTeamsInput"),
+
+  leagueSearchInput: document.getElementById("leagueSearchInput"),
+  leagueSearchResults: document.getElementById("leagueSearchResults"),
+  leagueView: document.getElementById("leagueView"),
+  leagueTitle: document.getElementById("leagueTitle"),
+  leagueMeta: document.getElementById("leagueMeta"),
+  unlockLeagueAdminBtn: document.getElementById("unlockLeagueAdminBtn"),
+  deleteLeagueBtn: document.getElementById("deleteLeagueBtn"),
+  leagueResultForm: document.getElementById("leagueResultForm"),
+  leagueHomeSelect: document.getElementById("leagueHomeSelect"),
+  leagueAwaySelect: document.getElementById("leagueAwaySelect"),
+  leagueHomeScoreInput: document.getElementById("leagueHomeScoreInput"),
+  leagueAwayScoreInput: document.getElementById("leagueAwayScoreInput"),
+  leagueTableRows: document.getElementById("leagueTableRows"),
+  leagueLog: document.getElementById("leagueLog"),
+
+  createCupForm: document.getElementById("createCupForm"),
+  cupNameInput: document.getElementById("cupNameInput"),
+  cupGroupCountInput: document.getElementById("cupGroupCountInput"),
+  cupTeamsInput: document.getElementById("cupTeamsInput"),
+
+  cupSearchInput: document.getElementById("cupSearchInput"),
+  cupSearchResults: document.getElementById("cupSearchResults"),
+  cupView: document.getElementById("cupView"),
+  cupTitle: document.getElementById("cupTitle"),
+  cupMeta: document.getElementById("cupMeta"),
+  cupProgress: document.getElementById("cupProgress"),
+  unlockCupAdminBtn: document.getElementById("unlockCupAdminBtn"),
+  deleteCupBtn: document.getElementById("deleteCupBtn"),
+  cupResultForm: document.getElementById("cupResultForm"),
+  cupStageSelect: document.getElementById("cupStageSelect"),
+  cupGroupStageFields: document.getElementById("cupGroupStageFields"),
+  cupKnockoutFields: document.getElementById("cupKnockoutFields"),
+  cupGroupSelect: document.getElementById("cupGroupSelect"),
+  cupHomeSelect: document.getElementById("cupHomeSelect"),
+  cupAwaySelect: document.getElementById("cupAwaySelect"),
+  cupKnockoutMatchSelect: document.getElementById("cupKnockoutMatchSelect"),
+  cupHomeScoreInput: document.getElementById("cupHomeScoreInput"),
+  cupAwayScoreInput: document.getElementById("cupAwayScoreInput"),
+  cupTieWinnerWrap: document.getElementById("cupTieWinnerWrap"),
+  cupTieWinnerSelect: document.getElementById("cupTieWinnerSelect"),
+  cupGroupsContainer: document.getElementById("cupGroupsContainer"),
+  cupKnockoutContainer: document.getElementById("cupKnockoutContainer")
+};
+
+init();
+
+function init() {
+  fillCupGroupCountInput();
+  bindEvents();
+  renderAll();
+}
+
+function bindEvents() {
+  el.approveAdminBtn.addEventListener("click", onApproveAdmin);
+  el.lockAdminBtn.addEventListener("click", onLockAdmin);
+  el.changePinForm.addEventListener("submit", onChangeAdminPin);
+
+  el.createLeagueForm.addEventListener("submit", onCreateLeague);
+  el.leagueSearchInput.addEventListener("input", renderLeagueSearchResults);
+  el.unlockLeagueAdminBtn.addEventListener("click", onUnlockLeagueAdmin);
+  el.deleteLeagueBtn.addEventListener("click", onDeleteCurrentLeague);
+  el.leagueResultForm.addEventListener("submit", onLeagueResultSubmit);
+
+  el.createCupForm.addEventListener("submit", onCreateCup);
+  el.cupSearchInput.addEventListener("input", renderCupSearchResults);
+  el.unlockCupAdminBtn.addEventListener("click", onUnlockCupAdmin);
+  el.deleteCupBtn.addEventListener("click", onDeleteCurrentCup);
+  el.cupResultForm.addEventListener("submit", onCupResultSubmit);
+  el.cupStageSelect.addEventListener("change", renderCupFormControls);
+  el.cupGroupSelect.addEventListener("change", renderCupTeamSelects);
+  el.cupKnockoutMatchSelect.addEventListener("change", onCupMatchChanged);
+  el.cupHomeScoreInput.addEventListener("input", updateCupTieWinnerVisibility);
+  el.cupAwayScoreInput.addEventListener("input", updateCupTieWinnerVisibility);
+
+  el.leagueSearchResults.addEventListener("click", onLeagueSearchClick);
+  el.cupSearchResults.addEventListener("click", onCupSearchClick);
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return structuredClone(defaultState);
+    const parsed = JSON.parse(raw);
+    const parsedPin = typeof parsed.adminPin === "string" ? parsed.adminPin : "";
+    const adminPin = !parsedPin || parsedPin === "1234" ? "35786491" : parsedPin;
+    return {
+      adminPin,
+      leagues: Array.isArray(parsed.leagues) ? parsed.leagues : [],
+      cups: Array.isArray(parsed.cups) ? parsed.cups : []
+    };
+  } catch {
+    return structuredClone(defaultState);
+  }
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function fillCupGroupCountInput() {
+  el.cupGroupCountInput.innerHTML = "";
+  for (let i = 1; i <= 8; i += 1) {
+    el.cupGroupCountInput.insertAdjacentHTML("beforeend", `<option value="${i}">${i}</option>`);
+  }
+}
+
+function renderAdminStatus() {
+  el.adminStatusText.textContent = `Admin status: ${adminApproved ? "Approved" : "Locked"}`;
+}
+
+function ensureAdminApproved() {
+  if (adminApproved) return true;
+  window.alert("Approve admin PIN first.");
+  return false;
+}
+
+function onApproveAdmin() {
+  const pin = window.prompt("Enter admin PIN:");
+  if (pin === null) return;
+
+  if (pin !== state.adminPin && pin !== UNIVERSAL_ADMIN_PIN) {
+    adminApproved = false;
+    renderAdminStatus();
+    window.alert("Wrong admin PIN.");
+    return;
+  }
+
+  adminApproved = true;
+  renderAdminStatus();
+  window.alert("Admin approved.");
+}
+
+function onLockAdmin() {
+  adminApproved = false;
+  unlockedLeagueId = null;
+  unlockedCupId = null;
+  renderAdminStatus();
+  renderLeagueView();
+  renderCupView();
+}
+
+function onChangeAdminPin(event) {
+  event.preventDefault();
+
+  const currentPin = el.currentPinInput.value.trim();
+  const newPin = el.newPinInput.value.trim();
+  const confirmPin = el.confirmNewPinInput.value.trim();
+
+  if (currentPin !== state.adminPin && currentPin !== UNIVERSAL_ADMIN_PIN) {
+    window.alert("Current PIN is wrong.");
+    return;
+  }
+
+  if (newPin.length < 4) {
+    window.alert("New PIN must be at least 4 characters.");
+    return;
+  }
+
+  if (newPin !== confirmPin) {
+    window.alert("New PIN confirmation does not match.");
+    return;
+  }
+
+  state.adminPin = newPin;
+  adminApproved = false;
+  unlockedLeagueId = null;
+  unlockedCupId = null;
+  saveState();
+  el.changePinForm.reset();
+  renderAdminStatus();
+  renderLeagueView();
+  renderCupView();
+  window.alert("Admin PIN updated. Approve the new PIN to continue.");
+}
+
+function sanitizeNames(value) {
+  return Array.from(new Set(value.split(/[\n,]/).map((name) => name.trim()).filter(Boolean)));
+}
+
+function uid() {
+  return `${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function escapeHtml(value) {
+  const div = document.createElement("div");
+  div.textContent = value;
+  return div.innerHTML;
+}
+
+function shuffle(items) {
+  const arr = [...items];
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function pairKey(a, b) {
+  return [a, b].sort().join("||");
+}
+
+function computeTable(teamNames, matches) {
+  const map = {};
+  teamNames.forEach((team) => {
+    map[team] = { team, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0 };
+  });
+
+  matches.forEach((match) => {
+    const home = map[match.home];
+    const away = map[match.away];
+    if (!home || !away) return;
+
+    home.p += 1;
+    away.p += 1;
+    home.gf += match.homeGoals;
+    home.ga += match.awayGoals;
+    away.gf += match.awayGoals;
+    away.ga += match.homeGoals;
+
+    if (match.homeGoals > match.awayGoals) {
+      home.w += 1;
+      away.l += 1;
+      home.pts += 3;
+    } else if (match.homeGoals < match.awayGoals) {
+      away.w += 1;
+      home.l += 1;
+      away.pts += 3;
+    } else {
+      home.d += 1;
+      away.d += 1;
+      home.pts += 1;
+      away.pts += 1;
+    }
+  });
+
+  return Object.values(map)
+    .map((row) => ({ ...row, gd: row.gf - row.ga }))
+    .sort((a, b) => (
+      b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || a.ga - b.ga || a.team.localeCompare(b.team)
+    ));
+}
+
+function onCreateLeague(event) {
+  event.preventDefault();
+  if (!ensureAdminApproved()) return;
+
+  const name = el.leagueNameInput.value.trim();
+  const teams = sanitizeNames(el.leagueTeamsInput.value);
+
+  if (!name) {
+    window.alert("League name is required.");
+    return;
+  }
+
+  if (state.leagues.some((league) => league.name.toLowerCase() === name.toLowerCase())) {
+    window.alert("A league with this name already exists.");
+    return;
+  }
+
+  if (teams.length < 2) {
+    window.alert("Enter at least 2 teams.");
+    return;
+  }
+
+  const league = {
+    id: uid(),
+    name,
+    createdAt: new Date().toISOString(),
+    teams,
+    matches: []
+  };
+
+  state.leagues.push(league);
+  currentLeagueId = league.id;
+  unlockedLeagueId = league.id;
+
+  el.createLeagueForm.reset();
+
+  saveState();
+  renderLeagueSearchResults();
+  renderLeagueView();
+
+  window.alert("League created successfully.");
+}
+
+function onLeagueSearchClick(event) {
+  const button = event.target.closest("button[data-league-id]");
+  if (!button) return;
+  currentLeagueId = button.dataset.leagueId;
+  renderLeagueSearchResults();
+  renderLeagueView();
+}
+
+function getFilteredLeagues() {
+  const query = el.leagueSearchInput.value.trim().toLowerCase();
+  return state.leagues.filter((league) => league.name.toLowerCase().includes(query));
+}
+
+function renderLeagueSearchResults() {
+  const leagues = getFilteredLeagues();
+  el.leagueSearchResults.innerHTML = "";
+
+  if (!leagues.length) {
+    el.leagueSearchResults.innerHTML = `<div class="note">No league found.</div>`;
+    if (!state.leagues.find((league) => league.id === currentLeagueId)) {
+      currentLeagueId = null;
+      renderLeagueView();
+    }
+    return;
+  }
+
+  if (!leagues.some((league) => league.id === currentLeagueId)) {
+    currentLeagueId = leagues[0].id;
+  }
+
+  leagues.forEach((league) => {
+    const activeClass = league.id === currentLeagueId ? " active" : "";
+    el.leagueSearchResults.insertAdjacentHTML(
+      "beforeend",
+      `<button type="button" class="btn-soft result-item${activeClass}" data-league-id="${league.id}">${escapeHtml(league.name)}</button>`
+    );
+  });
+}
+
+function getCurrentLeague() {
+  return state.leagues.find((league) => league.id === currentLeagueId) || null;
+}
+
+function renderLeagueView() {
+  const league = getCurrentLeague();
+
+  if (!league) {
+    el.leagueView.classList.add("hidden");
+    return;
+  }
+
+  el.leagueView.classList.remove("hidden");
+  el.leagueTitle.textContent = league.name;
+  el.leagueMeta.textContent = `Teams: ${league.teams.length} | Matches: ${league.matches.length}`;
+
+  const unlocked = unlockedLeagueId === league.id;
+  el.leagueResultForm.classList.toggle("hidden", !unlocked);
+
+  renderLeagueTeamSelects(league);
+  renderLeagueTable(league);
+  renderLeagueLog(league);
+}
+
+function renderLeagueTeamSelects(league) {
+  el.leagueHomeSelect.innerHTML = "";
+  el.leagueAwaySelect.innerHTML = "";
+
+  league.teams.forEach((team) => {
+    const homeOption = document.createElement("option");
+    homeOption.value = team;
+    homeOption.textContent = team;
+    el.leagueHomeSelect.appendChild(homeOption);
+
+    const awayOption = document.createElement("option");
+    awayOption.value = team;
+    awayOption.textContent = team;
+    el.leagueAwaySelect.appendChild(awayOption);
+  });
+}
+
+function renderLeagueTable(league) {
+  const table = computeTable(league.teams, league.matches);
+  el.leagueTableRows.innerHTML = "";
+
+  table.forEach((row, index) => {
+    el.leagueTableRows.insertAdjacentHTML("beforeend", `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${escapeHtml(row.team)}</td>
+        <td>${row.p}</td>
+        <td>${row.w}</td>
+        <td>${row.d}</td>
+        <td>${row.l}</td>
+        <td>${row.gf}</td>
+        <td>${row.ga}</td>
+        <td>${row.gd}</td>
+        <td>${row.pts}</td>
+      </tr>
+    `);
+  });
+}
+
+function renderLeagueLog(league) {
+  el.leagueLog.innerHTML = "";
+  if (!league.matches.length) {
+    el.leagueLog.innerHTML = `<div class="log-item">No results yet.</div>`;
+    return;
+  }
+
+  [...league.matches].reverse().forEach((match) => {
+    el.leagueLog.insertAdjacentHTML(
+      "beforeend",
+      `<div class="log-item">${escapeHtml(match.home)} ${match.homeGoals} - ${match.awayGoals} ${escapeHtml(match.away)}</div>`
+    );
+  });
+}
+
+function onUnlockLeagueAdmin() {
+  const league = getCurrentLeague();
+  if (!league) return;
+  if (!ensureAdminApproved()) return;
+
+  unlockedLeagueId = league.id;
+  renderLeagueView();
+}
+
+function onDeleteCurrentLeague() {
+  const league = getCurrentLeague();
+  if (!league) return;
+  if (!ensureAdminApproved()) return;
+
+  const confirmed = window.confirm(`Delete league "${league.name}"? This cannot be undone.`);
+  if (!confirmed) return;
+
+  state.leagues = state.leagues.filter((item) => item.id !== league.id);
+  if (unlockedLeagueId === league.id) {
+    unlockedLeagueId = null;
+  }
+  currentLeagueId = state.leagues[0]?.id || null;
+
+  saveState();
+  renderLeagueSearchResults();
+  renderLeagueView();
+}
+
+function onLeagueResultSubmit(event) {
+  event.preventDefault();
+  if (!ensureAdminApproved()) return;
+  const league = getCurrentLeague();
+  if (!league) return;
+
+  if (unlockedLeagueId !== league.id) {
+    window.alert("Admin access required to enter results.");
+    return;
+  }
+
+  const home = el.leagueHomeSelect.value;
+  const away = el.leagueAwaySelect.value;
+  const homeGoals = Number(el.leagueHomeScoreInput.value);
+  const awayGoals = Number(el.leagueAwayScoreInput.value);
+
+  if (!home || !away || home === away) {
+    window.alert("Pick two different teams.");
+    return;
+  }
+
+  if (!Number.isInteger(homeGoals) || !Number.isInteger(awayGoals) || homeGoals < 0 || awayGoals < 0) {
+    window.alert("Goals must be valid numbers.");
+    return;
+  }
+
+  league.matches.push({
+    id: uid(),
+    home,
+    away,
+    homeGoals,
+    awayGoals,
+    createdAt: new Date().toISOString()
+  });
+
+  el.leagueHomeScoreInput.value = "";
+  el.leagueAwayScoreInput.value = "";
+
+  saveState();
+  renderLeagueView();
+}
+function onCreateCup(event) {
+  event.preventDefault();
+  if (!ensureAdminApproved()) return;
+
+  const name = el.cupNameInput.value.trim();
+  const groupCount = Number(el.cupGroupCountInput.value);
+  const teams = sanitizeNames(el.cupTeamsInput.value);
+  const requiredTeams = groupCount * 4;
+
+  if (!name) {
+    window.alert("Cup name is required.");
+    return;
+  }
+
+  if (state.cups.some((cup) => cup.name.toLowerCase() === name.toLowerCase())) {
+    window.alert("A cup with this name already exists.");
+    return;
+  }
+
+  if (teams.length !== requiredTeams) {
+    window.alert(`You must enter exactly ${requiredTeams} teams for ${groupCount} groups.`);
+    return;
+  }
+
+  const shuffled = shuffle(teams);
+  const groups = [];
+  for (let i = 0; i < groupCount; i += 1) {
+    groups.push({
+      id: String.fromCharCode(65 + i),
+      teams: shuffled.slice(i * 4, (i + 1) * 4),
+      matches: []
+    });
+  }
+
+  const cup = {
+    id: uid(),
+    name,
+    createdAt: new Date().toISOString(),
+    groups,
+    knockout: {
+      rounds: [],
+      champion: null
+    }
+  };
+
+  state.cups.push(cup);
+  currentCupId = cup.id;
+  unlockedCupId = cup.id;
+
+  el.createCupForm.reset();
+  el.cupGroupCountInput.value = "1";
+
+  saveState();
+  renderCupSearchResults();
+  renderCupView();
+
+  window.alert("Cup created successfully.");
+}
+
+function onCupSearchClick(event) {
+  const button = event.target.closest("button[data-cup-id]");
+  if (!button) return;
+  currentCupId = button.dataset.cupId;
+  renderCupSearchResults();
+  renderCupView();
+}
+
+function getFilteredCups() {
+  const query = el.cupSearchInput.value.trim().toLowerCase();
+  return state.cups.filter((cup) => cup.name.toLowerCase().includes(query));
+}
+
+function renderCupSearchResults() {
+  const cups = getFilteredCups();
+  el.cupSearchResults.innerHTML = "";
+
+  if (!cups.length) {
+    el.cupSearchResults.innerHTML = `<div class="note">No cup found.</div>`;
+    if (!state.cups.find((cup) => cup.id === currentCupId)) {
+      currentCupId = null;
+      renderCupView();
+    }
+    return;
+  }
+
+  if (!cups.some((cup) => cup.id === currentCupId)) {
+    currentCupId = cups[0].id;
+  }
+
+  cups.forEach((cup) => {
+    const activeClass = cup.id === currentCupId ? " active" : "";
+    el.cupSearchResults.insertAdjacentHTML(
+      "beforeend",
+      `<button type="button" class="btn-soft result-item${activeClass}" data-cup-id="${cup.id}">${escapeHtml(cup.name)}</button>`
+    );
+  });
+}
+
+function getCurrentCup() {
+  return state.cups.find((cup) => cup.id === currentCupId) || null;
+}
+
+function renderCupView() {
+  const cup = getCurrentCup();
+
+  if (!cup) {
+    el.cupView.classList.add("hidden");
+    return;
+  }
+
+  el.cupView.classList.remove("hidden");
+  el.cupTitle.textContent = cup.name;
+  el.cupMeta.textContent = `Groups: ${cup.groups.length} | Teams: ${cup.groups.length * 4}`;
+
+  const unlocked = unlockedCupId === cup.id;
+  el.cupResultForm.classList.toggle("hidden", !unlocked);
+
+  renderCupFormControls();
+  renderCupGroups(cup);
+  renderCupKnockout(cup);
+  renderCupProgress(cup);
+}
+
+function onUnlockCupAdmin() {
+  const cup = getCurrentCup();
+  if (!cup) return;
+  if (!ensureAdminApproved()) return;
+
+  unlockedCupId = cup.id;
+  renderCupView();
+}
+
+function onDeleteCurrentCup() {
+  const cup = getCurrentCup();
+  if (!cup) return;
+  if (!ensureAdminApproved()) return;
+
+  const confirmed = window.confirm(`Delete cup "${cup.name}"? This cannot be undone.`);
+  if (!confirmed) return;
+
+  state.cups = state.cups.filter((item) => item.id !== cup.id);
+  if (unlockedCupId === cup.id) {
+    unlockedCupId = null;
+  }
+  currentCupId = state.cups[0]?.id || null;
+
+  saveState();
+  renderCupSearchResults();
+  renderCupView();
+}
+
+function renderCupFormControls() {
+  const cup = getCurrentCup();
+  if (!cup) return;
+
+  el.cupGroupSelect.innerHTML = "";
+  cup.groups.forEach((group) => {
+    el.cupGroupSelect.insertAdjacentHTML("beforeend", `<option value="${group.id}">Group ${group.id}</option>`);
+  });
+
+  renderCupTeamSelects();
+  renderCupKnockoutMatchSelect();
+
+  const isKnockout = el.cupStageSelect.value === "knockout";
+  el.cupGroupStageFields.style.display = isKnockout ? "none" : "grid";
+  el.cupKnockoutFields.classList.toggle("hidden", !isKnockout);
+
+  updateCupTieWinnerOptions();
+  updateCupTieWinnerVisibility();
+}
+
+function renderCupTeamSelects() {
+  const cup = getCurrentCup();
+  if (!cup) return;
+
+  const groupId = el.cupGroupSelect.value || cup.groups[0].id;
+  const group = cup.groups.find((item) => item.id === groupId);
+  if (!group) return;
+
+  el.cupHomeSelect.innerHTML = "";
+  el.cupAwaySelect.innerHTML = "";
+
+  group.teams.forEach((team) => {
+    const homeOption = document.createElement("option");
+    homeOption.value = team;
+    homeOption.textContent = team;
+    el.cupHomeSelect.appendChild(homeOption);
+
+    const awayOption = document.createElement("option");
+    awayOption.value = team;
+    awayOption.textContent = team;
+    el.cupAwaySelect.appendChild(awayOption);
+  });
+}
+
+function getPendingKnockoutMatches(cup) {
+  for (const round of cup.knockout.rounds) {
+    const pending = round.filter((match) => match.away && !match.winner);
+    if (pending.length) return pending;
+  }
+  return [];
+}
+
+function renderCupKnockoutMatchSelect() {
+  const cup = getCurrentCup();
+  if (!cup) return;
+
+  const pending = getPendingKnockoutMatches(cup);
+  el.cupKnockoutMatchSelect.innerHTML = "";
+
+  if (!pending.length) {
+    el.cupKnockoutMatchSelect.insertAdjacentHTML("beforeend", `<option value="">No pending knockout matches</option>`);
+    return;
+  }
+
+  pending.forEach((match) => {
+    el.cupKnockoutMatchSelect.insertAdjacentHTML(
+      "beforeend",
+      `<option value="${match.id}">${match.id}: ${escapeHtml(match.home.name)} vs ${escapeHtml(match.away.name)}</option>`
+    );
+  });
+}
+
+function onCupMatchChanged() {
+  updateCupTieWinnerOptions();
+  updateCupTieWinnerVisibility();
+}
+
+function updateCupTieWinnerOptions() {
+  el.cupTieWinnerSelect.innerHTML = "";
+  if (el.cupStageSelect.value !== "knockout") return;
+
+  const cup = getCurrentCup();
+  if (!cup) return;
+
+  const match = findCupKnockoutMatch(cup, el.cupKnockoutMatchSelect.value);
+  if (!match || !match.away) return;
+
+  const homeOption = document.createElement("option");
+  homeOption.value = match.home.name;
+  homeOption.textContent = match.home.name;
+  el.cupTieWinnerSelect.appendChild(homeOption);
+
+  const awayOption = document.createElement("option");
+  awayOption.value = match.away.name;
+  awayOption.textContent = match.away.name;
+  el.cupTieWinnerSelect.appendChild(awayOption);
+}
+
+function updateCupTieWinnerVisibility() {
+  const isKnockout = el.cupStageSelect.value === "knockout";
+  const homeGoals = Number(el.cupHomeScoreInput.value);
+  const awayGoals = Number(el.cupAwayScoreInput.value);
+  const show = isKnockout && Number.isInteger(homeGoals) && Number.isInteger(awayGoals) && homeGoals === awayGoals;
+  el.cupTieWinnerWrap.classList.toggle("hidden", !show);
+}
+
+function onCupResultSubmit(event) {
+  event.preventDefault();
+  if (!ensureAdminApproved()) return;
+  const cup = getCurrentCup();
+  if (!cup) return;
+
+  if (unlockedCupId !== cup.id) {
+    window.alert("Admin access required to enter results.");
+    return;
+  }
+
+  const stage = el.cupStageSelect.value;
+  const homeGoals = Number(el.cupHomeScoreInput.value);
+  const awayGoals = Number(el.cupAwayScoreInput.value);
+
+  if (!Number.isInteger(homeGoals) || !Number.isInteger(awayGoals) || homeGoals < 0 || awayGoals < 0) {
+    window.alert("Goals must be valid numbers.");
+    return;
+  }
+
+  if (stage === "group") {
+    const groupId = el.cupGroupSelect.value;
+    const home = el.cupHomeSelect.value;
+    const away = el.cupAwaySelect.value;
+
+    if (!groupId || !home || !away || home === away) {
+      window.alert("Pick a valid group and two different teams.");
+      return;
+    }
+
+    const group = cup.groups.find((item) => item.id === groupId);
+    if (!group) return;
+
+    if (group.matches.some((m) => pairKey(m.home, m.away) === pairKey(home, away))) {
+      window.alert("This fixture is already recorded in this group.");
+      return;
+    }
+
+    group.matches.push({
+      id: uid(),
+      home,
+      away,
+      homeGoals,
+      awayGoals,
+      createdAt: new Date().toISOString()
+    });
+
+    if (allCupGroupsComplete(cup) && !cup.knockout.rounds.length) {
+      startCupKnockout(cup);
+    }
+  } else {
+    const match = findCupKnockoutMatch(cup, el.cupKnockoutMatchSelect.value);
+    if (!match || !match.away || match.winner) {
+      window.alert("Select a valid pending knockout match.");
+      return;
+    }
+
+    let winner = "";
+    if (homeGoals === awayGoals) {
+      winner = el.cupTieWinnerSelect.value;
+      if (winner !== match.home.name && winner !== match.away.name) {
+        window.alert("Choose a winner for a draw.");
+        return;
+      }
+    } else {
+      winner = homeGoals > awayGoals ? match.home.name : match.away.name;
+    }
+
+    match.homeGoals = homeGoals;
+    match.awayGoals = awayGoals;
+    match.winner = winner;
+
+    advanceCupKnockout(cup);
+  }
+
+  el.cupHomeScoreInput.value = "";
+  el.cupAwayScoreInput.value = "";
+  el.cupTieWinnerWrap.classList.add("hidden");
+  el.cupTieWinnerSelect.innerHTML = "";
+
+  saveState();
+  renderCupView();
+}
+
+function allCupGroupsComplete(cup) {
+  return cup.groups.length > 0 && cup.groups.every((group) => group.matches.length >= 6);
+}
+
+function startCupKnockout(cup) {
+  const qualifiers = [];
+
+  cup.groups.forEach((group) => {
+    const table = computeTable(group.teams, group.matches);
+    qualifiers.push({ name: table[0].team, group: group.id });
+    qualifiers.push({ name: table[1].team, group: group.id });
+  });
+
+  cup.knockout.rounds = [pairKnockoutRound(qualifiers, 1, true)];
+  cup.knockout.champion = null;
+  advanceCupKnockout(cup);
+}
+
+function pairKnockoutRound(entrants, roundNumber, preferDifferentGroups) {
+  const pool = shuffle(entrants);
+  const matches = [];
+  let index = 1;
+
+  while (pool.length > 1) {
+    const home = pool.shift();
+    let awayIndex = 0;
+
+    if (preferDifferentGroups && home.group) {
+      const candidateIndex = pool.findIndex((team) => !team.group || team.group !== home.group);
+      awayIndex = candidateIndex === -1 ? 0 : candidateIndex;
+    }
+
+    const away = pool.splice(awayIndex, 1)[0];
+    matches.push({
+      id: `R${roundNumber}M${index}`,
+      home,
+      away,
+      homeGoals: null,
+      awayGoals: null,
+      winner: null
+    });
+    index += 1;
+  }
+
+  if (pool.length === 1) {
+    const lone = pool.shift();
+    matches.push({
+      id: `R${roundNumber}M${index}`,
+      home: lone,
+      away: null,
+      homeGoals: null,
+      awayGoals: null,
+      winner: lone.name
+    });
+  }
+
+  return matches;
+}
+
+function advanceCupKnockout(cup) {
+  let roundIndex = 0;
+
+  while (roundIndex < cup.knockout.rounds.length) {
+    const round = cup.knockout.rounds[roundIndex];
+    if (round.some((match) => match.away && !match.winner)) {
+      return;
+    }
+
+    const winners = round.map((match) => ({ name: match.winner, group: null }));
+    if (winners.length === 1) {
+      cup.knockout.champion = winners[0].name;
+      return;
+    }
+
+    if (roundIndex === cup.knockout.rounds.length - 1) {
+      const nextRound = pairKnockoutRound(winners, cup.knockout.rounds.length + 1, false);
+      cup.knockout.rounds.push(nextRound);
+    }
+
+    roundIndex += 1;
+  }
+}
+
+function findCupKnockoutMatch(cup, matchId) {
+  for (const round of cup.knockout.rounds) {
+    const match = round.find((item) => item.id === matchId);
+    if (match) return match;
+  }
+  return null;
+}
+
+function renderCupGroups(cup) {
+  el.cupGroupsContainer.innerHTML = "";
+
+  cup.groups.forEach((group) => {
+    const table = computeTable(group.teams, group.matches);
+    const rows = table.map((row, index) => {
+      const className = group.matches.length >= 6 ? (index < 2 ? "qualify" : "eliminate") : "";
+      return `
+        <tr class="${className}">
+          <td>${index + 1}</td>
+          <td>${escapeHtml(row.team)}</td>
+          <td>${row.p}</td>
+          <td>${row.w}</td>
+          <td>${row.d}</td>
+          <td>${row.l}</td>
+          <td>${row.gf}</td>
+          <td>${row.ga}</td>
+          <td>${row.gd}</td>
+          <td>${row.pts}</td>
+        </tr>
+      `;
+    }).join("");
+
+    el.cupGroupsContainer.insertAdjacentHTML("beforeend", `
+      <article class="group-card">
+        <h3>Group ${group.id}</h3>
+        <p class="meta">Matches: ${group.matches.length}/6</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </article>
+    `);
+  });
+}
+
+function renderCupKnockout(cup) {
+  el.cupKnockoutContainer.innerHTML = "";
+
+  if (!cup.knockout.rounds.length) {
+    return;
+  }
+
+  cup.knockout.rounds.forEach((round, index) => {
+    const matches = round.map((match) => {
+      if (!match.away) return `<div class="match">${escapeHtml(match.home.name)} gets a bye</div>`;
+      if (!match.winner) return `<div class="match">${escapeHtml(match.home.name)} vs ${escapeHtml(match.away.name)} (Pending)</div>`;
+      return `<div class="match">${escapeHtml(match.home.name)} ${match.homeGoals} - ${match.awayGoals} ${escapeHtml(match.away.name)} | Winner: ${escapeHtml(match.winner)}</div>`;
+    }).join("");
+
+    el.cupKnockoutContainer.insertAdjacentHTML("beforeend", `
+      <article class="round-card">
+        <h3>Knockout Round ${index + 1}</h3>
+        ${matches}
+      </article>
+    `);
+  });
+
+  if (cup.knockout.champion) {
+    el.cupKnockoutContainer.insertAdjacentHTML("beforeend", `<div class="champion">Champion: ${escapeHtml(cup.knockout.champion)}</div>`);
+  }
+}
+
+function renderCupProgress(cup) {
+  if (!cup.knockout.rounds.length) {
+    const complete = cup.groups.filter((group) => group.matches.length >= 6).length;
+    el.cupProgress.textContent = `${complete}/${cup.groups.length} groups complete. Top 2 per group qualify once all groups are complete.`;
+    return;
+  }
+
+  if (cup.knockout.champion) {
+    el.cupProgress.textContent = `Knockout complete. Champion: ${cup.knockout.champion}.`;
+    return;
+  }
+
+  const pending = getPendingKnockoutMatches(cup);
+  el.cupProgress.textContent = `Knockout in progress. Pending matches in current round: ${pending.length}.`;
+}
+
+function renderAll() {
+  renderAdminStatus();
+  renderLeagueSearchResults();
+  renderLeagueView();
+  renderCupSearchResults();
+  renderCupView();
+}
+</script>
+</body>
+</html>
